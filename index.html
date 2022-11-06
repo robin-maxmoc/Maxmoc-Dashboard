@@ -80,6 +80,13 @@ Global Classes
       overflow: auto;
     }
 
+    button:disabled {
+      color: var(--clr-muted);
+      opacity: 0.8;
+      transform: none !important;
+      cursor: not-allowed;
+    }
+
     /* 
 ==========
 Custom CSS
@@ -2037,9 +2044,9 @@ Custom CSS
             <label for="axis-y">Axis Y</label>
             <div id="axis-y"></div>
           </div>
-          <div class="axis-select-chosen">
+          <!-- <div class="axis-select-chosen">
             Chosen : <span></span>
-          </div>
+          </div> -->
         </div>
         <div class="axis-table-control">
           <div class="axis-table">
@@ -2053,8 +2060,8 @@ Custom CSS
               <button class="graph-button btn btn-warning">Graph</button>
               <div class="axis-sheets-button-group">
                 <div class="sheet-selection" id="sheet-selection">
-                  <button class="load-values">Load Values</button>
-                  <button class="read-values">Read Values</button>
+                  <!-- <button class="load-values">Load Values</button>
+                  <button class="read-values">Read Values</button> -->
                 </div>
                 <div class="axis-sheet-control-buttons">
                   <button class="read-map btn btn btn-warning" onclick='readValues()'>Read map with
@@ -2900,8 +2907,8 @@ Custom CSS
         hamburger.classList.add('active');
         sidebarClosed = false;
       } else if (!sidebarClosed) {
-        hamburger.classList.remove('active');
         sidebar.classList.add('close');
+        hamburger.classList.remove('active');
         sidebarClosed = true;
       }
     });
@@ -2939,11 +2946,11 @@ Custom CSS
         } else if (link.classList.contains('maps-calibration-link')) {
           mapsCalibration.classList.add('show');
         } else if (link.classList.contains('broadcast-link')) {
-          broadcast.classList.add('show')
+          broadcast.classList.add('show');
         } else if (link.classList.contains('proprietary-link')) {
-          proprietary.classList.add('show')
+          proprietary.classList.add('show');
         } else if (link.classList.contains('diagnostics-link')) {
-          diagnostics.classList.add('show')
+          diagnostics.classList.add('show');
         }
 
       });
@@ -2970,7 +2977,7 @@ Custom CSS
     const settingsBtn = document.querySelector('.firmware-settings__box-heading .settings');
 
     firmwareBtn.addEventListener('click', () => {
-      settingsBtn.classList.remove('active')
+      settingsBtn.classList.remove('active');
       firmwareBtn.classList.add('active');
     })
     settingsBtn.addEventListener('click', () => {
@@ -2979,15 +2986,25 @@ Custom CSS
     })
 
     // Maps Calibration 
+    const xAxisBar = document.querySelector('.x-axis-bar');
+    console.log(xAxisBar.scroll);
+    const yAxisBar = document.querySelector('.y-axis-bar');
+    console.log(yAxisBar.scroll);
+    const axisDisplay = document.querySelector('.axis-display');
+
     const cancelSelectionBtn = document.querySelector('.map-cancel-button');
+    const activeWorkMap = document.querySelector('.active-work-map');
+
     cancelSelectionBtn.addEventListener('click', () => {
-      document.querySelector('.x-axis-bar').innerHTML = `<span>Axis X</span>`;
-      document.querySelector('.y-axis-bar').innerHTML = `<span>Axis Y</span>`;
-      document.querySelector('.axis-display').innerHTML = '';
-      document.querySelector('.axis-x').selectedIndex = 0;
-      document.querySelector('.axis-y').selectedIndex = 0;
+      xAxisBar.innerHTML = `<span>Axis X</span>`;
+      yAxisBar.innerHTML = `<span>Axis Y</span>`;
+      axisDisplay.innerHTML = '';
+      document.querySelector('.axis-x').selectedIndex = 1;
+      document.querySelector('.axis-y').selectedIndex = 2;
       document.querySelector('.axis-select').selectedIndex = 0;
+      activeWorkMap.disabled = false;
     });
+
 
     // Diagnostics NA Button
     const dmSheets = document.querySelectorAll('.diagnostics-right-table__buttons .dm-sheet-btn');
